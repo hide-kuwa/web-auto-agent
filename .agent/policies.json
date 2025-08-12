@@ -1,0 +1,19 @@
+{
+  "allow": [
+    "git",
+    "node",
+    "npm",
+    "npx",
+    "echo"
+  ],
+  "deny": [
+    "rm",
+    "sudo",
+    "shutdown",
+    "format",
+    "mkfs",
+    "powershell -Command Remove-Item",
+    "cmd /c del"
+  ],
+  "timeoutSec": 120
+}
