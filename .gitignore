@@ -10,3 +10,10 @@ out/
 
 # RPA/Browser local artifacts
 .agent/
+
+# Local scripts & Python artifacts
+scripts_py/
+__pycache__/
+*.pyc
+.venv/
+.vscode/
