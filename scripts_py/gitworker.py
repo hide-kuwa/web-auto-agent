@@ -1,5 +1,5 @@
-import subprocess, json, webbrowser, re, sys, pathlib, datetime
-pend=json.loads(pathlib.Path('.agent/changes/pending.json').read_text(encoding='utf-8'))
+﻿import subprocess, json, webbrowser, re, sys, pathlib, datetime
+pend=json.loads(pathlib.Path('.agent/changes/pending.json').read_text(encoding='utf-8-sig'))
 def sh(cmd):
     return subprocess.check_output(cmd, shell=True).decode('utf-8',errors='ignore').strip()
 def parse_remote(u):
@@ -32,3 +32,4 @@ def main():
     pr=f"https://github.com/{owner}/{repo}/compare/{branch}?expand=1"
     print('Open PR:', pr); webbrowser.open(pr)
 if __name__=='__main__': main()
+

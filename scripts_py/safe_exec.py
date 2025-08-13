@@ -1,8 +1,8 @@
-import json, subprocess, os, sys, shlex, pathlib
+﻿import json, subprocess, os, sys, shlex, pathlib
 from colorama import Fore, Style, init
 init(autoreset=True)
-pol=json.loads(pathlib.Path('.agent/policies.json').read_text(encoding='utf-8'))
-chg=json.loads(pathlib.Path('.agent/changes/pending.json').read_text(encoding='utf-8'))
+pol=json.loads(pathlib.Path('.agent/policies.json').read_text(encoding='utf-8-sig'))
+chg=json.loads(pathlib.Path('.agent/changes/pending.json').read_text(encoding='utf-8-sig'))
 allow=set(pol.get('allow',[])); deny=[x.lower() for x in pol.get('deny',[])]
 timeout=int(pol.get('timeoutSec',120))
 def denied(c):
@@ -29,3 +29,4 @@ for c in chg.get('commands',[]):
     except subprocess.CalledProcessError:
         print(Fore.RED+f"FAILED: {c}"); sys.exit(1)
 print(Style.BRIGHT+"Done.")
+

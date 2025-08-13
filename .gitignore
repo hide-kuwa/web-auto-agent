@@ -1,14 +1,19 @@
-﻿# --- project ignores ---
+# local caches / tools
+.agent/
 .venv/
 node_modules/
-.agent/artifacts/
-.agent/user-data/
-
-# OS/IDE
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# misc
+dist/
+out/
 *.log
+# RPA/Browser local artifacts
+.agent/
+
+# RPA/Browser local artifacts
+.agent/
+
+# Local scripts & Python artifacts
+scripts_py/
+__pycache__/
+*.pyc
+.venv/
+.vscode/
