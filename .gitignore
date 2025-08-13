@@ -1,4 +1,4 @@
-# local caches / tools
+﻿# local caches / tools
 .agent/
 .venv/
 node_modules/
@@ -12,7 +12,6 @@ out/
 .agent/
 
 # Local scripts & Python artifacts
-scripts_py/
 __pycache__/
 *.pyc
 .venv/
