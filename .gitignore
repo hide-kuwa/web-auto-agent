@@ -5,3 +5,8 @@ node_modules/
 dist/
 out/
 *.log
+# RPA/Browser local artifacts
+.agent/
+
+# RPA/Browser local artifacts
+.agent/
