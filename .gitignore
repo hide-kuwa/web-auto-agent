@@ -16,3 +16,7 @@ __pycache__/
 *.pyc
 .venv/
 .vscode/
+
+# Local-only script leftovers
+scripts_py/*.bak
+scripts_py/rpa_plan.json
