@@ -1,3 +1,13 @@
+﻿# -*- coding: utf-8 -*-
+def js_eval(page, expr, arg=None, label=""):
+    """Minimal helper to eval JS safely and not crash the runner."""
+    try:
+        return page.evaluate(expr, arg)
+    except Exception as e:
+        print(f"[js_eval:{label}] {e}")
+        return None
+
+
 def install_observer(page, label, primary_sel):
     expr = """
 (arg) => {
@@ -19,7 +29,7 @@ def install_observer(page, label, primary_sel):
         if(t) return t;
       }catch(e){}
     }
-    // ← フォールバック：ページ全文から #relay の最後の行を拾う
+    // 竊・繝輔か繝ｼ繝ｫ繝舌ャ繧ｯ・壹・繝ｼ繧ｸ蜈ｨ譁・°繧・#relay 縺ｮ譛蠕後・陦後ｒ諡ｾ縺・
     try{
       const lines=(document.body.innerText||'').split(/\\n+/).map(s=>s.trim()).filter(Boolean);
       for(let i=lines.length-1;i>=0;i--){
@@ -39,6 +49,8 @@ def install_observer(page, label, primary_sel):
   window.addEventListener('load', write);
 }
 """
-    arg = {"label":label,"primary":primary_sel}
+    arg = {"label": label, "primary": primary_sel}
     js_eval(page, expr, arg, f"obs:{label}")
-    page.on('domcontentloaded', lambda: js_eval(page, expr, arg, f"obs(domready):{label}"))
+    page.on(
+        "domcontentloaded", lambda: js_eval(page, expr, arg, f"obs(domready):{label}")
+    )

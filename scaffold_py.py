@@ -1,11 +1,15 @@
-import pathlib, json, datetime, re, subprocess, webbrowser
+import pathlib
+
 
 def w(p, c):
     path = pathlib.Path(p)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(c, encoding="utf-8")
 
-w("scripts_py/preview.py", """import http.server, socketserver, os, pathlib
+
+w(
+    "scripts_py/preview.py",
+    """import http.server, socketserver, os, pathlib
 PORT=5173
 root=pathlib.Path('app').resolve()
 os.chdir(root)
@@ -17,9 +21,12 @@ class H(http.server.SimpleHTTPRequestHandler):
 with socketserver.TCPServer(("",PORT),H) as httpd:
     print(f"Preview: http://localhost:{PORT}")
     httpd.serve_forever()
-""")
+""",
+)
 
-w("scripts_py/run_headed.py", """import json, pathlib
+w(
+    "scripts_py/run_headed.py",
+    """import json, pathlib
 from playwright.sync_api import sync_playwright
 spec_path=pathlib.Path('.agent/tests/home.json')
 out_dir=pathlib.Path('.agent/artifacts'); out_dir.mkdir(parents=True, exist_ok=True)
@@ -50,9 +57,12 @@ def run():
         print("OK: headed test finished. Artifacts in .agent/artifacts")
         ctx.close()
 if __name__=='__main__': run()
-""")
+""",
+)
 
-w("scripts_py/safe_exec.py", """import json, subprocess, os, sys, shlex, pathlib
+w(
+    "scripts_py/safe_exec.py",
+    """import json, subprocess, os, sys, shlex, pathlib
 from colorama import Fore, Style, init
 init(autoreset=True)
 pol=json.loads(pathlib.Path('.agent/policies.json').read_text(encoding='utf-8'))
@@ -83,9 +93,12 @@ for c in chg.get('commands',[]):
     except subprocess.CalledProcessError:
         print(Fore.RED+f"FAILED: {c}"); sys.exit(1)
 print(Style.BRIGHT+"Done.")
-""")
+""",
+)
 
-w("scripts_py/gitworker.py", """import subprocess, json, webbrowser, re, sys, pathlib, datetime
+w(
+    "scripts_py/gitworker.py",
+    """import subprocess, json, webbrowser, re, sys, pathlib, datetime
 pend=json.loads(pathlib.Path('.agent/changes/pending.json').read_text(encoding='utf-8'))
 def sh(cmd):
     return subprocess.check_output(cmd, shell=True).decode('utf-8',errors='ignore').strip()
@@ -119,6 +132,7 @@ def main():
     pr=f"https://github.com/{owner}/{repo}/compare/{branch}?expand=1"
     print('Open PR:', pr); webbrowser.open(pr)
 if __name__=='__main__': main()
-""")
+""",
+)
 
 print("OK: scripts_py generated.")
